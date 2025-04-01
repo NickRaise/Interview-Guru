@@ -5,7 +5,7 @@ export interface Interview {
   role: string;
   level: string;
   questions: string[];
-  techstack: string[];
+  techStack: string[];
   createdAt: string;
   userId: string;
   type: string;
@@ -17,7 +17,7 @@ export interface InterviewCardProps {
   role: string;
   level: string;
   questions: string[];
-  techstack: string[];
+  techStack: string[];
   createdAt: string;
   userId: string;
   type: string;
@@ -37,4 +37,8 @@ export interface Feedback {
   areasForImprovement: string[];
   finalAssessment: string;
   createdAt: string;
+}
+
+export interface TechIconProps {
+  techStack: string[];
 }

@@ -4,13 +4,14 @@ import dayjs from "dayjs";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import DisplayTechIcons from "./DisplayTechIcons";
 
 const InterviewCard = ({
   interviewId,
   userId,
   role,
   type,
-  techstack,
+  techStack,
   createdAt,
 }: InterviewCardProps) => {
   const feedback = null as Feedback | null;
@@ -47,36 +48,36 @@ const InterviewCard = ({
                 style={{ width: "auto", height: "auto" }}
               />
               <p>{formattedDate}</p>
-              <div className="flex flex-row gap-2 items-center">
-                <Image
-                  src="/star.svg"
-                  alt="Star"
-                  width={22}
-                  height={22}
-                  style={{ width: "auto", height: "auto" }}
-                />
-                <p>{feedback?.totalScore || "---"}/100</p>
-              </div>
             </div>
-            <p className="line-clamp-2 mt-2">
-              {feedback?.finalAssessment ||
-                "You haven't taken the interview yet. Take it now to improve your skills."}
-            </p>
+            <div className="flex flex-row gap-2 items-center">
+              <Image
+                src="/star.svg"
+                alt="Star"
+                width={22}
+                height={22}
+                style={{ width: "auto", height: "auto" }}
+              />
+              <p>{feedback?.totalScore || "---"}/100</p>
+            </div>
           </div>
-          <div className="flex flex-row justify-between">
-            <p>Tech icons</p>
-            <Button className="btn-primary">
-              <Link
-                href={
-                  feedback
-                    ? `/interview/${interviewId}/feedback`
-                    : `/interview/${interviewId}`
-                }
-              >
-                {feedback ? "Check Feedback" : "View Interview"}
-              </Link>
-            </Button>
-          </div>
+          <p className="line-clamp-2 mt-2">
+            {feedback?.finalAssessment ||
+              "You haven't taken the interview yet. Take it now to improve your skills."}
+          </p>
+        </div>
+        <div className="flex flex-row justify-between">
+          <DisplayTechIcons techStack={techStack} />
+          <Button className="btn-primary">
+            <Link
+              href={
+                feedback
+                  ? `/interview/${interviewId}/feedback`
+                  : `/interview/${interviewId}`
+              }
+            >
+              {feedback ? "Check Feedback" : "View Interview"}
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
