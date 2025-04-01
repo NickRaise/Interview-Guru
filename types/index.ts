@@ -44,13 +44,19 @@ export interface TechIconProps {
 }
 
 export interface SignUpParams {
-  uid: string,
-  name: string,
-  email: string,
-  password: string
+  uid: string;
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface SignInParams {
-  email: string,
-  idToken: string
+  email: string;
+  idToken: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+  id: string;
 }
