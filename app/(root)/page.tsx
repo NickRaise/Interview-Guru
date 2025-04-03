@@ -1,11 +1,11 @@
 import InterviewCard from "@/components/InterviewCard";
 import { Button } from "@/components/ui/button";
 import { dummyInterviews } from "@/constants";
+import { getCurrentUser } from "@/lib/actions/auth.action";
 import {
-  getCurrentUser,
   getInterviewByUserId,
   getLatestInterviews,
-} from "@/lib/actions/auth.action";
+} from "@/lib/actions/general.action";
 import { Interview } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
