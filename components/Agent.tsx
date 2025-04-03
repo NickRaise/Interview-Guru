@@ -24,23 +24,23 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, SetMessages] = useState<SavedMessage[]>([]);
 
+  const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+  const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+
+  const onMessage = (message: Message) => {
+    if (message.type === "transcript" && message.trafnscriptType === "final") {
+      const newMessage = { role: message.role, content: message.transcript };
+
+      SetMessages((prev) => [...prev, newMessage]);
+    }
+  };
+
+  const onSpeechStart = () => setIsSpeaking(true);
+  const onSpeechEnd = () => setIsSpeaking(false);
+
+  const onError = (error: Error) => console.log("Error occurred", error);
+
   useEffect(() => {
-    const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
-    const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
-
-    const onMessage = (message: Message) => {
-      if (message.type === "transcript" && message.transcriptType === "final") {
-        const newMessage = { role: message.role, content: message.transcript };
-
-        SetMessages((prev) => [...prev, newMessage]);
-      }
-    };
-
-    const onSpeechStart = () => setIsSpeaking(true);
-    const onSpeechEnd = () => setIsSpeaking(false);
-
-    const onError = (error: Error) => console.log("Error occurred", error);
-
     vapi.on("call-start", onCallStart);
     vapi.on("call-end", onCallEnd);
     vapi.on("message", onMessage);
