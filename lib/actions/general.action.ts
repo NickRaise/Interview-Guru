@@ -105,5 +105,8 @@ export async function createFeedback(params: CreateFeedbackParams) {
     };
   } catch (err) {
     console.log("Error saving feedback: ", err);
+    return {
+      success: false,
+    };
   }
 }

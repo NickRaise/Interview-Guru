@@ -37,6 +37,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
       <Agent
         userName={user?.name!}
+        userId={user?.id}
         type="interview"
         interviewId={id}
         questions={interview.questions}
