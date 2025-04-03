@@ -2,6 +2,8 @@ import { feedbackSchema } from "@/constants";
 import { db } from "@/firebase/admin";
 import {
   CreateFeedbackParams,
+  Feedback,
+  GetFeedbackByInterviewIdParams,
   GetLatestInterviewsParams,
   Interview,
 } from "@/types";
@@ -109,4 +111,25 @@ export async function createFeedback(params: CreateFeedbackParams) {
       success: false,
     };
   }
+}
+
+export async function getFeedbackByInterviewId(
+  params: GetFeedbackByInterviewIdParams
+): Promise<Feedback | null> {
+  const { interviewId, userId } = params;
+
+  const feedback = await db
+    .collection("feedback")
+    .where("interviewId", "==", interviewId)
+    .where("userId", "==", userId)
+    .limit(1)
+    .get();
+
+  if (feedback.empty) return null;
+
+  const feedbackDoc = feedback.docs[0];
+  return {
+    id: feedbackDoc.id,
+    ...feedbackDoc.data(),
+  } as Feedback;
 }

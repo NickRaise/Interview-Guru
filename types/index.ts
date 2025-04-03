@@ -81,3 +81,8 @@ export interface CreateFeedbackParams {
   transcript: { role: string; content: string }[];
   feedbackId?: string;
 }
+
+export interface GetFeedbackByInterviewIdParams {
+  interviewId: string;
+  userId: string;
+}

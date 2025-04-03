@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const page = async ({ params }: { params: { id: string } }) => {
-  const { id } = params;
+  const { id } = await params;
   const user = await getCurrentUser();
 
   const interview = await getInterviewById(id);

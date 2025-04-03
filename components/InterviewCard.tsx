@@ -5,8 +5,9 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import DisplayTechIcons from "./DisplayTechIcons";
+import { getFeedbackByInterviewId } from "@/lib/actions/general.action";
 
-const InterviewCard = ({
+const InterviewCard = async ({
   interviewId,
   userId,
   role,
@@ -14,7 +15,10 @@ const InterviewCard = ({
   techStack,
   createdAt,
 }: InterviewCardProps) => {
-  const feedback = null as Feedback | null;
+  const feedback =
+    userId && interviewId
+      ? await getFeedbackByInterviewId({ interviewId, userId })
+      : null;
 
   // If the 'type' contains the word "mix" (case-insensitive), set 'normalizedType' to "Mixed", otherwise keep the original 'type'.
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
