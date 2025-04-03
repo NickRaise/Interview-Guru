@@ -74,3 +74,10 @@ export interface GetLatestInterviewsParams {
   userId: string;
   limit?: number;
 }
+
+export interface CreateFeedbackParams {
+  interviewId: string;
+  userId: string;
+  transcript: { role: string; content: string }[];
+  feedbackId?: string;
+}
