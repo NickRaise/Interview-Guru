@@ -13,7 +13,6 @@ const InterviewCard = async ({
   role,
   type,
   techStack,
-  createdAt,
 }: InterviewCardProps) => {
   const feedback =
     userId && interviewId
@@ -25,7 +24,7 @@ const InterviewCard = async ({
   const formattedDate = dayjs(feedback?.createdAt).format("MMM D, YYYY");
 
   return (
-    <div className="card-border w-[360px] max-sm:w-full min-h-96">
+    <div className="card-border lg:w-[360px] sm:w-full min-h-96">
       <div className="card-interview">
         <div>
           <div className="absolute top-0 right-0 w-fit px-4 py-2 rounded-bl-lg bg-light-600">
