@@ -36,7 +36,9 @@ const Agent = ({
   const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
 
   const onMessage = (message: any) => {
-    if (message.type === "transcript" && message.trafnscriptType === "final") {
+    console.log("Look here ->", message);
+    console.log("Look here also ->", messages);
+    if (message.type === "transcript" && message.transcriptType === "final") {
       const newMessage = { role: message.role, content: message.transcript };
 
       SetMessages((prev) => [...prev, newMessage]);
