@@ -17,6 +17,8 @@ import {
 } from "firebase/auth";
 import { auth } from "@/firebase/client";
 import { signIn, signUp } from "@/lib/actions/auth.action";
+import { useState } from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -29,6 +31,7 @@ const authFormSchema = (type: FormType) => {
 const AuthForm = ({ type }: { type: FormType }) => {
   const router = useRouter();
   const formSchema = authFormSchema(type);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,6 +85,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
     try {
       if (type === "sign-up") {
         const result = await signUpTheUser(values);
@@ -103,6 +107,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
       toast.error(`There was an error: ${err}`);
     }
     console.log(values);
+    setLoading(false);
   }
 
   const isSignIn = type === "sign-in";
@@ -148,8 +153,16 @@ const AuthForm = ({ type }: { type: FormType }) => {
               placeholder="Enter your password"
               type="password"
             />
-            <Button className="btn" type="submit">
-              {isSignIn ? "Sign In" : "Create an account"}
+            <Button className="btn" type="submit" disabled={loading}>
+              {loading === false ? (
+                isSignIn ? (
+                  "Sign In"
+                ) : (
+                  "Create an account"
+                )
+              ) : (
+                <BeatLoader />
+              )}
             </Button>
           </form>
         </Form>
